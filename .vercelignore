@@ -1,0 +1,4 @@
+data/raw
+scripts
+backend/tests
+.pytest_cache

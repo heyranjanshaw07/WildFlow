@@ -1,0 +1,74 @@
+{
+  "generatedAt": "2026-10-25T08:20:50.394567+00:00",
+  "deliveryScope": {
+    "startDateUTC": "2026-01-02T00:00:00Z",
+    "endDateUTC": "2026-02-01T23:30:00Z",
+    "totalDeliveryDays": 31,
+    "expectedHalfHourlyPeriods": 1488
+  },
+  "actuals": {
+    "raw_total": 1499,
+    "in_scope_valid": 1488,
+    "expected_periods": 1488,
+    "missing_periods": 0,
+    "duplicate_rows_dropped": 0,
+    "dropped_out_of_scope": 11
+  },
+  "forecasts": {
+    "raw_total": 19856,
+    "dedup_total": 19856,
+    "unique_publication_runs": 272,
+    "negative_lead_time_count": 4081,
+    "min_lead_time_hours": -25.5,
+    "max_lead_time_hours": 66.5,
+    "hourly_distribution_utc": {
+      "2": 2482,
+      "4": 2482,
+      "7": 2482,
+      "9": 2482,
+      "11": 2409,
+      "12": 73,
+      "15": 2482,
+      "18": 2482,
+      "22": 2482
+    },
+    "duplicates_dropped": 0
+  },
+  "cutoffCoverage": {
+    "defaultCutoff0900": {
+      "cutoff": "09:00 Europe/London (D-1)",
+      "total_expected_periods": 1488,
+      "matched_periods": 744,
+      "coverage_pct": 50.0,
+      "matched_on_hour_00": 744,
+      "matched_half_hour_30": 0,
+      "missing_on_hour_00": 0,
+      "missing_half_hour_30": 744,
+      "sample_missing": [
+        "2026-01-02T00:30:00Z",
+        "2026-01-02T01:30:00Z",
+        "2026-01-02T02:30:00Z",
+        "2026-01-02T03:30:00Z",
+        "2026-01-02T04:30:00Z"
+      ]
+    },
+    "comparisonCutoff1200": {
+      "cutoff": "12:00 Europe/London (D-1)",
+      "total_expected_periods": 1488,
+      "matched_periods": 744,
+      "coverage_pct": 50.0,
+      "matched_on_hour_00": 744,
+      "matched_half_hour_30": 0,
+      "missing_on_hour_00": 0,
+      "missing_half_hour_30": 744,
+      "sample_missing": [
+        "2026-01-02T00:30:00Z",
+        "2026-01-02T01:30:00Z",
+        "2026-01-02T02:30:00Z",
+        "2026-01-02T03:30:00Z",
+        "2026-01-02T04:30:00Z"
+      ]
+    },
+    "explanation": "Elexon WINDFOR dataset publishes hourly forecasts (:00), while FUELHH records half-hourly outturns (:00 and :30). Consequently, exact startTime matching covers 100% of :00 hourly periods (744/744) and 0% of :30 periods without synthetic interpolation."
+  }
+}

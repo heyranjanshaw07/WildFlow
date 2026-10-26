@@ -1,0 +1,54 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: windscope-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - APP_NAME=WindScope — UK Wind Forecast Intelligence Platform
+      - ENVIRONMENT=production
+      - CUTOFF_HOUR=9
+      - CUTOFF_MINUTE=0
+      - CUTOFF_TIMEZONE=Europe/London
+      - CORS_ORIGINS=["http://localhost:5173","http://127.0.0.1:5173","http://localhost","http://localhost:80","http://127.0.0.1:80"]
+    volumes:
+      # Mount data directory as read-only for runtime immutability
+      - ./data:/app/data:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8000/api/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - windscope-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        # Empty string uses Nginx reverse proxy to route /api to backend service
+        - VITE_API_BASE_URL=
+    container_name: windscope-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1/nginx-health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    networks:
+      - windscope-net
+
+networks:
+  windscope-net:
+    driver: bridge
